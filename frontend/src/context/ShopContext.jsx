@@ -50,7 +50,7 @@ const ShopContextProvider = (props) => {
     if (token) {
       try {
         await axios.post(
-          backendUrl + "/api/cart/add",
+          "https://forever-backend-svm0.onrender.com" + "/api/cart/add",
           { itemId, size },
           { headers: {
       Authorization: `Bearer ${token}`,
@@ -86,7 +86,7 @@ const ShopContextProvider = (props) => {
     if (token) {
       try {
         await axios.post(
-          backendUrl + "/api/cart/update",
+          "https://forever-backend-svm0.onrender.com" + "/api/cart/update",
           { itemId, size, quantity },
           {
             headers: {
@@ -122,7 +122,7 @@ const ShopContextProvider = (props) => {
 
   const getProductsData = async () => {
     try {
-      const response = await axios.get(backendUrl + "/api/product/list");
+      const response = await axios.get("https://forever-backend-svm0.onrender.com" + "/api/product/list");
       console.log(response.data.products);
 
       if (response.data.success) {
@@ -148,7 +148,7 @@ const ShopContextProvider = (props) => {
      console.log("🛒 Fetching cart with token:", token);
     try {
       const response = await axios.post(
-        backendUrl + "/api/cart/get",
+        "https://forever-backend-svm0.onrender.com" + "/api/cart/get",
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
