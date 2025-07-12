@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { ShopContext } from "../context/ShopContext";
 import { useSearchParams, useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from "../api/axios";
 import { toast } from "react-toastify";
 
 function Verify() {
