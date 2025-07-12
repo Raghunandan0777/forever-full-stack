@@ -8,7 +8,8 @@ export const ShopContext = createContext();
 const ShopContextProvider = (props) => {
   const currency = "$";
   const delivery_fee = 10;
-  const backendUrl = import.meta.env.VITE_BACKEND_URL;
+   const backendUrl = "https://forever-backend-svm0.onrender.com";
+  // const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
   const [showSearch, setShowSearch] = useState(false);
@@ -50,7 +51,7 @@ const ShopContextProvider = (props) => {
     if (token) {
       try {
         await axios.post(
-          "https://forever-backend-svm0.onrender.com" + "/api/cart/add",
+          backendUrl + "/api/cart/add",
           { itemId, size },
           { headers: {
       Authorization: `Bearer ${token}`,
@@ -86,7 +87,7 @@ const ShopContextProvider = (props) => {
     if (token) {
       try {
         await axios.post(
-          "https://forever-backend-svm0.onrender.com" + "/api/cart/update",
+          backendUrl + "/api/cart/update",
           { itemId, size, quantity },
           {
             headers: {
@@ -122,7 +123,7 @@ const ShopContextProvider = (props) => {
 
   const getProductsData = async () => {
     try {
-      const response = await axios.get("https://forever-backend-svm0.onrender.com" + "/api/product/list");
+      const response = await axios.get(backendUrl + "/api/product/list");
       console.log(response.data.products);
 
       if (response.data.success) {
@@ -148,7 +149,7 @@ const ShopContextProvider = (props) => {
      console.log("🛒 Fetching cart with token:", token);
     try {
       const response = await axios.post(
-        "https://forever-backend-svm0.onrender.com" + "/api/cart/get",
+        backendUrl + "/api/cart/get",
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
