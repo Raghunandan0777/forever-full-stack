@@ -38,7 +38,5 @@ app.use("/api/cart", cartRouter)
 
 
 
-
-
 app.listen(port, () => console.log("server is started on PORT : " + port)
 )
