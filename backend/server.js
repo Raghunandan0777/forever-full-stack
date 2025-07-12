@@ -26,7 +26,11 @@ connectCloudinary()
 // widdlewares
 
 app.use(express.json())
-app.use(cors())
+app.use(cors({
+    origin:["https://forever-full-stack-frontend-pi.vercel.app",
+       " https://forever-adminpanel-six.vercel.app"
+    ]
+}));
 
 // api endpoint
 
