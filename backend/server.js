@@ -27,7 +27,7 @@ connectCloudinary()
 
 app.use(express.json())
 app.use(cors({
-    origin:["https://forever-full-stack-frontend-pi.vercel.app",
+    origin:["http://localhost:4000" ,"https://forever-full-stack-frontend-pi.vercel.app",
        " https://forever-adminpanel-six.vercel.app"
     ]
 }));
