@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ShopContext } from "../context/ShopContext";
 import Title from "../components/Title";
-import axios from "../api/axios"
+import axios from "axios"
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 

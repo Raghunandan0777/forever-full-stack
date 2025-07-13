@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import axios from "../api/axios";
+import axios from "axios";
 
 export const ShopContext = createContext();
 
