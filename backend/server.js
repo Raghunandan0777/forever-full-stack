@@ -25,8 +25,16 @@ connectCloudinary()
 
 // widdlewares
 
-app.use(express.json())
-app.use(cors())
+
+app.use(cors({
+  const cors = require("cors");
+  origin: "https://forever-full-stack-iyas.onrender.com", "https://forever-full-stack-admin-cl0w.onrender.com",// allow frontend
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"], // <-- this is important
+}));
+
+  
 
 // api endpoint
 
