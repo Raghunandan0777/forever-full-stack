@@ -19,13 +19,27 @@ const Login = () => {
           email,
           password,
         });
-        if (response.data.success) {
-          console.log(response.data);
+        // if (response.data.success) {
+        //   console.log(response.data);
 
-          setToken(response.data.token);
-          localStorage.setItem("token", response.data.token);
-        } else {
-          toast.error(response.data.message);
+        //   setToken(response.data.token);
+        //   localStorage.setItem("token", response.data.token);
+        // } else {
+        //   toast.error(response.data.message);
+        // }
+
+        if (response.data.success) {
+          console.log(" Login response:", response.data);
+
+          const token = response.data.token;
+          if (!token) {
+            console.error(" Token missing in login response!");
+            toast.error("Login failed: Token not received from server.");
+            return;
+          }
+
+          setToken(token);
+          localStorage.setItem("token", token);
         }
       } else {
         const response = await axios.post(backendUrl + "/api/user/login", {
@@ -34,10 +48,9 @@ const Login = () => {
         });
         if (response.data.success) {
           console.log(response.data);
-          
+
           setToken(response.data.token);
           localStorage.setItem("token", response.data.token);
-          
         } else {
           toast.error(response.data.message);
         }
@@ -48,11 +61,11 @@ const Login = () => {
     }
   };
 
-  useEffect(()=>{
-    if(token){
-      navigate("/")
+  useEffect(() => {
+    if (token) {
+      navigate("/");
     }
-  },[token])
+  }, [token]);
 
   return (
     <form
