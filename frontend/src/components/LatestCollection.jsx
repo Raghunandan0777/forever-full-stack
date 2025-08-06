@@ -22,7 +22,7 @@ const LatestCollection = () => {
 
 
 if (loadingProducts) {
-  return <div className="text-center py-10">Loading latest products...</div>;
+  return <div className="text-center justify-center py-10 h-10 w-10 rounded-full border-3 border-blue-500 animate-spin border-t-transparent "></div>;
 }
 
   return (
@@ -39,7 +39,7 @@ if (loadingProducts) {
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 gap-y-6">
         {Array.isArray(latestProducts) && latestProducts.length > 0 &&
           latestProducts.map((item, index) => {
-            // Check for 'images' key
+            // Checking for 'images' key
             const imgArr = item.images;
             const imageUrl = imgArr?.[0]
               ? imgArr[0].startsWith("http")
