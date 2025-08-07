@@ -136,8 +136,8 @@ const ShopContextProvider = (props) => {
     const fetchProducts = async () => {
       setLoadingProducts(true);
       try {
-        console.log("Fetching products from:", backendUrl + "/product/list");
-        const response = await axios.get(backendUrl + "/product/list");
+        console.log("Fetching products from:", backendUrl + "/api/product/list");
+        const response = await axios.get(backendUrl + "/api/product/list");
         console.log("Response status:", response.status);
         console.log("Response data:", response.data);
 
@@ -164,8 +164,8 @@ const ShopContextProvider = (props) => {
   const getProductsData = async () => {
     setLoadingProducts(true);
     try {
-      console.log("Fetching products from:", backendUrl + "/product/list");
-      const response = await axios.get(backendUrl + "/product/list");
+      console.log("Fetching products from:", backendUrl + "/api/product/list");
+      const response = await axios.get(backendUrl + "/api/product/list");
       console.log("Response status:", response.status);
       console.log("Response data:", response.data);
 
@@ -179,7 +179,7 @@ const ShopContextProvider = (props) => {
       }
     } catch (error) {
       console.error("Product fetch error:", error);
-      toast.error("Failed to fetch products");
+      toast.error(error.response?.data?.message || "Failed to fetch products");
     } finally {
       setLoadingProducts(false);
     }
@@ -190,7 +190,7 @@ const ShopContextProvider = (props) => {
     console.log("🛒 Fetching cart with token:", token);
     try {
       const response = await axios.get(
-        backendUrl + "/api/cart", // Changed from /api/cart/get to /api/cart
+        backendUrl + "/api/cart", 
         { headers: { Authorization: `Bearer ${token}` } }
       );
       if (response.data.success) {
