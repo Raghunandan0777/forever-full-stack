@@ -7,10 +7,22 @@ function BestSeller() {
   const { products, backendUrl } = useContext(ShopContext);
   const [bestSeller, setBestSeller] = useState([]);
 
+  // Helper function to get image URL
+  const getImageUrl = (product) => {
+    const imgArr = product.images || product.Image || product.image || [];
+    const imageUrl = imgArr?.[0]
+      ? imgArr[0].startsWith('http')
+        ? imgArr[0]
+        : `${backendUrl}/uploads/${imgArr[0]}`
+      : '/placeholder.jpg';
+    return imageUrl;
+  };
+
   useEffect(() => {
-    
-    const bestProduct = products.filter((item) => item.bestseller);
-    setBestSeller(bestProduct.slice(0, 5));
+    if (Array.isArray(products) && products.length > 0) {
+      const bestProduct = products.filter((item) => item.bestseller === true);
+      setBestSeller(bestProduct.slice(0, 5));
+    }
   }, [products]);
 
   return (
@@ -23,24 +35,18 @@ function BestSeller() {
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 gap-y-6">
-        {bestSeller.map((item, index) => {
-          const imgArr = item.images;
-          const imageUrl = imgArr?.[0]
-            ? imgArr[0].startsWith('http')
-              ? imgArr[0]
-              : `${backendUrl}/uploads/${imgArr[0]}`
-            : '/placeholder.jpg';
-
-          return (
+        {bestSeller.length > 0 ? (
+          bestSeller.map((product, index) => (
             <ProductItem
-              key={index}
-              id={item._id}
-              image={imageUrl}
-              name={item.name}
-              price={item.price}
+              key={product._id}
+              product={product}
+              imageUrl={getImageUrl(product)}
+              errorFallback={() => '/placeholder.jpg'}
             />
-          );
-        })}
+          ))
+        ) : (
+          <p className="text-center text-gray-500">No bestseller products available</p>
+        )}
       </div>
     </div>
   );

@@ -37,7 +37,7 @@ function Login({setToken}) {
             <input onChange={(e)=>setEmail(e.target.value)} value={email}
               className="rounded-md w-full py-2 px-3 border border-gray-300 outline-none"
               type="email"
-              placeholder="email@.com"
+              placeholder="admin@gmail.com"
               required
             />
           </div>
@@ -46,7 +46,7 @@ function Login({setToken}) {
             <input onChange={(e)=>setPassword(e.target.value)} value={password}
               className="rounded-md w-full py-2 px-3 border border-gray-300 outline-none"
               type="password"
-              placeholder="Enter your password"
+              placeholder="admin123"
               required
             />
           </div>

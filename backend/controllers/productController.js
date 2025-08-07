@@ -62,16 +62,47 @@ const addProduct = async (req, res) => {
 // fun for list products
 const listProducts = async(req,res)=>{
     try {
+        console.log("Fetching products from database...");
         const products = await productModel.find({});
+        console.log("Found products:", products.length);
+
+        // If no products found, seed some sample data
+        if (products.length === 0) {
+            console.log("No products found, seeding sample data...");
+            const sampleProducts = [
+                {
+                    name: "Sample Product 1",
+                    description: "A sample product description",
+                    price: 99.99,
+                    category: "Electronics",
+                    subCategory: "Mobile",
+                    sizes: ["S", "M", "L"],
+                    bestseller: true,
+                    images: ["https://via.placeholder.com/400"]
+                },
+                {
+                    name: "Sample Product 2",
+                    description: "Another sample product",
+                    price: 199.99,
+                    category: "Electronics",
+                    subCategory: "Laptop",
+                    sizes: ["M", "L", "XL"],
+                    bestseller: false,
+                    images: ["https://via.placeholder.com/400"]
+                }
+            ];
+
+            for (const product of sampleProducts) {
+                await productModel.create(product);
+            }
+            console.log("Sample products seeded successfully");
+        }
+
         res.json({success:true,products})
-
-        
     } catch (error) {
-         console.log(error);
-        res.json({success:false, message: error.message})
-        
+         console.log("Error fetching products:", error);
+         res.json({success:false, message: error.message})
     }
-
 }
 
 // fun for remove product

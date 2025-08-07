@@ -12,9 +12,9 @@ const authUser = async (req, res, next) => {
   const token = authHeader.split(" ")[1];
 
   try {
-    const token_decode = jwt.verify(token, process.env.JWT_SECRET);
-    console.log("Decoded token:", token_decode);
-    req.userId = token_decode.id; // Attach userId to req
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    console.log("Decoded token:", decoded);
+    req.user = decoded; 
     next();
   } catch (error) {
     console.log("Auth error:", error.message);

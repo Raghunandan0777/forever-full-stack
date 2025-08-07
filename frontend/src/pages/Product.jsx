@@ -131,12 +131,17 @@ const Product = () => {
         </div>
       </div>
 
-      {/* {-----------------related product section-------} */}
-
-      <RelatedProducts category={productData.category} subCategory={productData.subCategory}/>
+      {/* related products */}
+      <div className="mt-10">
+        <RelatedProducts 
+          category={productData.category} 
+          subcategory={productData.subCategory} 
+          productId={productData._id}
+        />
+      </div>
     </div>
   ) : (
-    <div className="opacity-0"></div>
+    <div className="text-center justify-center py-10 h-10 w-10 rounded-full border-3 border-blue-500 animate-spin border-t-transparent"></div>
   );
 };
 

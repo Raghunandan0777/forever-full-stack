@@ -89,8 +89,19 @@ const Collection = () => {
     sortProduct();
   }, [sortType]);
 
+  // Helper function to get image URL
+  const getImageUrl = (product) => {
+    const imgArr = product.images || product.Image || product.image || [];
+    const imageUrl = imgArr?.[0]
+      ? imgArr[0].startsWith("http")
+        ? imgArr[0]
+        : `${backendUrl}/uploads/${imgArr[0]}`
+      : "/placeholder.jpg";
+    return imageUrl;
+  };
+
   // Debug: Log products and their first image
-  console.log('PRODUCTS:', filterProducts.map(p => ({id: p._id, img: (p.Image || p.image || [])[0]})));
+  console.log('PRODUCTS:', filterProducts.map(p => ({id: p._id, img: getImageUrl(p)})));
 
   return (
     <div className="flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t">
@@ -198,23 +209,14 @@ const Collection = () => {
         </div>
         {/* {map product} */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 gap-y-6">
-          {filterProducts.map((item, index) => {
-            const imgArr = item.images;
-            const imageUrl = imgArr?.[0]
-              ? imgArr[0].startsWith("http")
-                ? imgArr[0]
-                : `${backendUrl}/uploads/${imgArr[0]}`
-              : "/placeholder.jpg";
-            return (
-              <ProductItem
-                key={index}
-                name={item.name}
-                id={item._id}
-                price={item.price}
-                image={imageUrl}
-              />
-            );
-          })}
+          {filterProducts.map((product, index) => (
+            <ProductItem
+              key={product._id}
+              product={product}
+              imageUrl={getImageUrl(product)}
+              errorFallback={() => "/placeholder.jpg"}
+            />
+          ))}
         </div>
       </div>
     </div>
