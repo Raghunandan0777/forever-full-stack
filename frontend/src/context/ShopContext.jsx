@@ -9,8 +9,7 @@ const ShopContextProvider = (props) => {
   const currency = "$";
   const delivery_fee = 10;
   
-  
-  const backendUrl = import.meta.env.VITE_BACKEND_URL ||" https://vercel.com/raghunandan-shahs-projects/forever-full-stack-backend";
+  const backendUrl = import.meta.env.VITE_BACKEND_URL || "https://vercel.com/raghunandan-shahs-projects/forever-full-stack-backend/api";
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
   const [showSearch, setShowSearch] = useState(false);
@@ -137,8 +136,8 @@ const ShopContextProvider = (props) => {
     const fetchProducts = async () => {
       setLoadingProducts(true);
       try {
-        console.log("Fetching products from:", backendUrl + "/api/product/list");
-        const response = await axios.get(backendUrl + "/api/product/list");
+        console.log("Fetching products from:", backendUrl + "/product/list");
+        const response = await axios.get(backendUrl + "/product/list");
         console.log("Response status:", response.status);
         console.log("Response data:", response.data);
 
@@ -152,7 +151,7 @@ const ShopContextProvider = (props) => {
         }
       } catch (error) {
         console.error("Product fetch error:", error);
-        toast.error("Failed to fetch products");
+        toast.error(error.response?.data?.message || "Failed to fetch products");
       } finally {
         setLoadingProducts(false);
       }
@@ -165,8 +164,8 @@ const ShopContextProvider = (props) => {
   const getProductsData = async () => {
     setLoadingProducts(true);
     try {
-      console.log("Fetching products from:", backendUrl + "/api/product/list");
-      const response = await axios.get(backendUrl + "/api/product/list");
+      console.log("Fetching products from:", backendUrl + "/product/list");
+      const response = await axios.get(backendUrl + "/product/list");
       console.log("Response status:", response.status);
       console.log("Response data:", response.data);
 
