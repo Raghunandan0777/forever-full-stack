@@ -29,6 +29,21 @@ app.use(cors({
   allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
+// Root route handler
+app.get('/', (req, res) => {
+  res.json({
+    status: 'success',
+    message: 'Forever Backend API is running',
+    version: '1.0.0',
+    endpoints: {
+      user: '/api/user/*',
+      product: '/api/product/*',
+      order: '/api/order/*',
+      cart: '/api/cart/*'
+    }
+  });
+});
+
 // api endpoint
 app.use("/api/user", userRoute)
 app.use("/api/product",productRouter)
