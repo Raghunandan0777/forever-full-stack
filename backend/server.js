@@ -1,11 +1,8 @@
 import dotenv from 'dotenv';
 dotenv.config();
-// console.log('RAZORPAY_KEY_ID:', process.env.RAZORPAY_KEY_ID);
-// console.log('RAZORPAY_KEY_SECRET:', process.env.RAZORPAY_KEY_SECRET);
 
 import express from "express";
 import cors from "cors";
-import serverless from "serverless-http"; 
 import connectDB from "./config/mongodb.js";
 import connectCloudinary from "./config/cloudinary.js";
 import userRoute from "./routes/userRoute.js";
@@ -15,7 +12,7 @@ import cartRouter from "./routes/cartRoute.js";
 
 // app config
 const app = express();
-const port = process.env.PORT || 4000;
+const PORT = process.env.PORT || 4000;
 
 // Connect to services
 connectDB();
@@ -30,8 +27,7 @@ app.use(cors({
     "http://localhost:5174",
     "http://localhost:5175",
     "http://localhost:5177",
-    "http://localhost:5176",
-    
+    "http://localhost:5176"
   ],
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE"],
@@ -65,14 +61,12 @@ app.use((err, req, res, next) => {
   res.status(500).json({ status: 'error', message: 'Internal server error' });
 });
 
-// 404 handler
+
 app.use('*', (req, res) => {
   res.status(404).json({ status: 'error', message: 'Route not found' });
 });
 
 
-export const handler = serverless(app);
-
-if (process.env.NODE_ENV !== 'production') {
-  app.listen(port, () => console.log("Server is started on PORT : " + port));
-}
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
