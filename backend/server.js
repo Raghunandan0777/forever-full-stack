@@ -31,8 +31,7 @@ app.use(cors({
     "http://localhost:5175",
     "http://localhost:5177",
     "http://localhost:5176",
-    "https://forever-frontend-blue-zeta.vercel.app",
-    "https://forever-admin-seven-tau.vercel.app"
+    
   ],
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE"],
