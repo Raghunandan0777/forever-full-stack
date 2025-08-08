@@ -11,12 +11,15 @@ const ShopContextProvider = (props) => {
   
   
 
-const backendUrl = import.meta.env.VITE_BACKEND_URL === 'production' 
-  ? 'https://forever-full-stack-backend-theta.vercel.app'
-  : 'http://localhost:4000';
+  // Determine if we're in production or development
+  const isProduction = window.location.hostname === 'vercel.app';
+  
+  const backendUrl = isProduction 
+    ? 'https://forever-full-stack-backend-luux31c0y-raghunandan-shahs-projects.vercel.app'
+    : 'http://localhost:4001';
 
-
-
+  // Add API prefix to all endpoints
+  const apiEndpoint = backendUrl + '/api';
 
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
@@ -59,7 +62,7 @@ const backendUrl = import.meta.env.VITE_BACKEND_URL === 'production'
 
       // Then make API call to update backend cart
       const response = await axios.post(
-        `${backendUrl}/api/cart/add`,
+        `${apiEndpoint}/cart/add`,
         { itemId, size },
         {
           headers: {
@@ -105,7 +108,7 @@ const backendUrl = import.meta.env.VITE_BACKEND_URL === 'production'
     if (token) {
       try {
         await axios.post(
-          backendUrl + "/api/cart/update",
+          `${apiEndpoint}/cart/update`,
           { itemId, size, quantity },
           {
             headers: {
@@ -144,8 +147,8 @@ const backendUrl = import.meta.env.VITE_BACKEND_URL === 'production'
     const fetchProducts = async () => {
       setLoadingProducts(true);
       try {
-        console.log("Fetching products from:", backendUrl + "/api/product/list");
-        const response = await axios.get(backendUrl + "/api/product/list");
+        console.log("Fetching products from:", `${apiEndpoint}/product/list`);
+        const response = await axios.get(`${apiEndpoint}/product/list`);
         console.log("Response status:", response.status);
         console.log("Response data:", response.data);
 
@@ -166,14 +169,14 @@ const backendUrl = import.meta.env.VITE_BACKEND_URL === 'production'
     };
 
     fetchProducts();
-  }, [backendUrl]);
+  }, [apiEndpoint]);
 
   // Product fetching function
   const getProductsData = async () => {
     setLoadingProducts(true);
     try {
-      console.log("Fetching products from:", backendUrl + "/api/product/list");
-      const response = await axios.get(backendUrl + "/api/product/list");
+      console.log("Fetching products from:", `${apiEndpoint}/product/list`);
+      const response = await axios.get(`${apiEndpoint}/product/list`);
       console.log("Response status:", response.status);
       console.log("Response data:", response.data);
 
@@ -198,7 +201,7 @@ const backendUrl = import.meta.env.VITE_BACKEND_URL === 'production'
     console.log("🛒 Fetching cart with token:", token);
     try {
       const response = await axios.get(
-        backendUrl + "/api/cart", 
+        `${apiEndpoint}/cart`, 
         { headers: { Authorization: `Bearer ${token}` } }
       );
       if (response.data.success) {
