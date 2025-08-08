@@ -9,7 +9,15 @@ const ShopContextProvider = (props) => {
   const currency = "$";
   const delivery_fee = 10;
   
-  const backendUrl = import.meta.env.VITE_BACKEND_URL || "https://vercel.com/raghunandan-shahs-projects/forever-full-stack-backend/api";
+  
+
+const backendUrl = import.meta.env.VITE_BACKEND_URL === 'production' 
+  ? 'https://forever-full-stack-backend-theta.vercel.app'
+  : 'http://localhost:4000';
+
+
+
+
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
   const [showSearch, setShowSearch] = useState(false);
