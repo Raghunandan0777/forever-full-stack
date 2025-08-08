@@ -16,7 +16,7 @@ const ShopContextProvider = (props) => {
   
   const backendUrl = isProduction 
     ? 'https://forever-full-stack-backend-luux31c0y-raghunandan-shahs-projects.vercel.app'
-    : 'http://localhost:4001';
+    : 'http://localhost:4000';
 
   // Add API prefix to all endpoints
   const apiEndpoint = backendUrl + '/api';
