@@ -6,8 +6,6 @@ import ProductItem from "./ProductItem";
 const LatestCollection = () => {
   const { products, backendUrl, loadingProducts } = useContext(ShopContext);
   const [latestProducts, setLatestProducts] = useState([]);
-  
- 
 
   useEffect(() => {
     if (Array.isArray(products) && products.length > 0) {
@@ -16,7 +14,11 @@ const LatestCollection = () => {
   }, [products, loadingProducts]);
 
   if (loadingProducts) {
-    return <div className="text-center justify-center py-10 h-10 w-10 rounded-full border-3 border-blue-500 animate-spin border-t-transparent"></div>;
+    return (
+      <div className="flex justify-center py-10">
+        <div className="h-10 w-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    );
   }
 
   return (

@@ -9,11 +9,13 @@ import List from "./pages/List";
 import Orders from "./pages/Orders";
 import { ToastContainer } from 'react-toastify';
 import { Navigate } from "react-router-dom";
+
+
+
 export const currency = '$';
 
+export const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
-
- export const backendUrl = "https://forever-backend-svm0.onrender.com"
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token") ? localStorage.getItem("token"): "");
